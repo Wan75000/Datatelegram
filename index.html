@@ -64,6 +64,18 @@
         .exit:hover {
             background-color: darkred;
         }
+        .inline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .inline input, .inline select {
+            width: 48%;
+        }
+        .arrow {
+            margin-left: 10px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -120,19 +132,24 @@
     <input type="number" id="jumlah_kantong2" min="1" placeholder="Jumlah Kantong">
 
     <label for="jadwal">Jadwal:</label>
-    <input type="text" id="jadwal" placeholder="Contoh: N22">
+    <input type="text" id="jadwal" placeholder="Masukkan jadwal">
 
-    <label for="jam">Jam Berangkat:</label>
-    <input type="text" id="jam" placeholder="Contoh: 08:00">
+    <label for="berangkat_jam">Berangkat Jam:</label>
+    <input type="text" id="berangkat_jam" placeholder="Masukkan waktu berangkat">
 
-    <label for="plat">Nomor Plat:</label>
-    <input type="text" id="plat" placeholder="Contoh: AB 1234 XY">
+    <label for="plat_nomor">No Plat:</label>
+    <input type="text" id="plat_nomor" placeholder="Masukkan nomor plat">
 
-    <label for="driver">Driver:</label>
-    <input type="text" id="driver" placeholder="Driver">
-
-    <label for="second_driver">Second Driver:</label>
-    <input type="text" id="second_driver" placeholder="Second Driver">
+    <div class="inline">
+        <div>
+            <label for="driver">Driver:</label>
+            <input type="text" id="driver" placeholder="Masukkan nama driver">
+        </div>
+        <div>
+            <label for="second_driver">Second Driver:</label>
+            <input type="text" id="second_driver" placeholder="Masukkan nama second driver">
+        </div>
+    </div>
 
     <button onclick="kirimKeTelegram()">KIRIM</button>
     <button class="exit" onclick="keluar()">KELUAR</button>
@@ -140,8 +157,8 @@
 
 <script>
     function kirimKeTelegram() {
-        let token = "8121564417:AAEtuNjpJq8BFDI-iYhiXLadlTYbcPsfnws"; // Token bot Anda
-        let chatId = "-4643025711"; // ID grup Anda
+        let token = "8121564417:AAEtuNjpJq8BFDI-iYhiXLadlTYbcPsfnws"; // Ganti dengan token bot Anda
+        let chatId = "-4643025711"; // Ganti dengan chat ID grup
 
         let rute = document.getElementById("rute").value;
         let kantorAsal = document.getElementById("kantor_asal").value;
@@ -150,34 +167,32 @@
         let kantorTujuan2 = document.getElementById("kantor_tujuan2").value;
         let jumlahKantong2 = document.getElementById("jumlah_kantong2").value;
         let jadwal = document.getElementById("jadwal").value;
-        let jam = document.getElementById("jam").value;
-        let plat = document.getElementById("plat").value;
+        let berangkatJam = document.getElementById("berangkat_jam").value;
+        let platNomor = document.getElementById("plat_nomor").value;
         let driver = document.getElementById("driver").value;
         let secondDriver = document.getElementById("second_driver").value;
 
-        let pesan = `🏁🏁🏁 ${rute} 🏁🏁🏁\n`;
-        pesan += `RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
+        let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n`;
+        pesan += `<RUTE ${kantorAsal} - ${kantorTujuan1}`;
         if (kantorTujuan2 !== "NONE" && kantorTujuan2 !== "") {
-            pesan += ` ➡️ ${kantorTujuan2}`;
+            pesan += ` - ${kantorTujuan2}`;
         }
-        pesan += `\n\n▫️Jadwal ${jadwal} ➡️\n`;
-        pesan += `▫️Berangkat jam ${jam} ➡️\n`;
-        pesan += `▫️No plat ${plat} ➡️\n`;
+        pesan += `>\n\n`;
+
+        pesan += `▫️N22.                         ➡️${jadwal}\n`;
+        pesan += `▫️Berangkat jam        ➡️${berangkatJam}\n`;
+        pesan += `▫️No plat                    ➡️ ${platNomor}\n`;
 
         pesan += `\n▫️Jumlah kantong ⤵️\n`;
         if (jumlahKantong1) {
-            pesan += `  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
+            pesan += `  ${kantorTujuan1} "${jumlahKantong1}" Ktg\n`;
         }
         if (jumlahKantong2 && kantorTujuan2 !== "NONE") {
-            pesan += `  ${kantorTujuan2} \"${jumlahKantong2}\" Ktg\n`;
+            pesan += `  ${kantorTujuan2} "${jumlahKantong2}" Ktg\n`;
         }
 
-        pesan += `\n▫️Driver ${driver} ➡️\n`;
-        if (secondDriver) {
-            pesan += `▫️Second driver ${secondDriver} ➡️\n`;
-        }
-
-        pesan += `\n"TERIMA KASIH"..!!🙏🙏🙏`;
+        pesan += `\n▫️Driver                  ➡️ ${driver} ▫️Second driver    ➡️ ${secondDriver}\n`;
+        pesan += `"TERIMA KASIH"..!!🙏🙏🙏`;
 
         let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
 
