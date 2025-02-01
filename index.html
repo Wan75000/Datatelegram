@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS IND INDONESIA</title>
+    <title>Form ARPOS</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,99 +66,72 @@
 <body>
 
 <div class="container">
-    <div class="header">POS IND INDONESIA</div>
+    <div class="header">🏁🏁🏁 ARPOS 🏁🏁🏁</div>
 
     <label for="rute">RUTE:</label>
-    <select id="rute">
-        <option value="ARPOS">ARPOS</option>
-        <option value="POSLOG">POSLOG</option>
-        <option value="TRESIER">TRESIER</option>
-    </select>
+    <input type="text" id="rute" placeholder="Masukkan rute">
 
-    <label for="kantor_asal">Kantor Asal:</label>
-    <select id="kantor_asal">
-        <option value="">Pilihan</option>
-        <option value="KC SMR 75000">KC SMR 75000</option>
-        <option value="KCU BPP 76100">KCU BPP 76100</option>
-        <option value="SPP BJM 70400">SPP BJM 70400</option>
-        <option value="KC BOT 75300">KC BOT 75300</option>
-        <option value="KC TSE 77000">KC TSE 77000</option>
-        <option value="KC TNR 77300">KC TNR 77300</option>
-        <option value="KC TRG 75500">KC TRG 75500</option>
-        <option value="NONE">NONE</option>
-    </select>
+    <label for="n22">N22:</label>
+    <input type="text" id="n22" placeholder="Masukkan N22">
+
+    <label for="berangkat">Berangkat jam:</label>
+    <input type="time" id="berangkat">
+
+    <label for="no_plat">No Plat:</label>
+    <input type="text" id="no_plat" placeholder="Masukkan no plat">
 
     <label for="kantor_tujuan1">Kantor Tujuan 1:</label>
-    <select id="kantor_tujuan1">
-        <option value="">Pilihan</option>
-        <option value="KC SMR 75000">KC SMR 75000</option>
-        <option value="KCU BPP 76100">KCU BPP 76100</option>
-        <option value="SPP BJM 70400">SPP BJM 70400</option>
-        <option value="KC BOT 75300">KC BOT 75300</option>
-        <option value="KC TSE 77000">KC TSE 77000</option>
-        <option value="KC TNR 77300">KC TNR 77300</option>
-        <option value="KC TRG 75500">KC TRG 75500</option>
-        <option value="NONE">NONE</option>
-    </select>
+    <input type="text" id="kantor_tujuan1" placeholder="Masukkan tujuan 1">
     <input type="number" id="jumlah_kantong1" min="1" placeholder="Jumlah Kantong">
 
     <label for="kantor_tujuan2">Kantor Tujuan 2:</label>
-    <select id="kantor_tujuan2">
-        <option value="">Pilihan</option>
-        <option value="KC SMR 75000">KC SMR 75000</option>
-        <option value="KCU BPP 76100">KCU BPP 76100</option>
-        <option value="SPP BJM 70400">SPP BJM 70400</option>
-        <option value="KC BOT 75300">KC BOT 75300</option>
-        <option value="KC TSE 77000">KC TSE 77000</option>
-        <option value="KC TNR 77300">KC TNR 77300</option>
-        <option value="KC TRG 75500">KC TRG 75500</option>
-        <option value="NONE">NONE</option>
-    </select>
+    <input type="text" id="kantor_tujuan2" placeholder="Masukkan tujuan 2">
     <input type="number" id="jumlah_kantong2" min="1" placeholder="Jumlah Kantong">
 
     <label for="driver">Driver:</label>
     <select id="driver">
-        <option value="andi">Andi</option>
-        <option value="hermanto">Hermanto</option>
-        <option value="redi">Redi</option>
-        <option value="triono">Triono</option>
-        <option value="samsul">Samsul</option>
-        <option value="rahmat">Rahmat</option>
-        <option value="fahri">Fahri</option>
-        <option value="rohim">Rohim</option>
-        <option value="salim">Salim</option>
-        <option value="eko">Eko</option>
-        <option value="rofi">Rofi</option>
-        <option value="sadam">Sadam</option>
+        <option value="Andi">Andi</option>
+        <option value="Hermanto">Hermanto</option>
+        <option value="Redi">Redi</option>
+        <option value="Triono">Triono</option>
+        <option value="Samsul">Samsul</option>
+        <option value="Rahmat">Rahmat</option>
+        <option value="Fahri">Fahri</option>
+        <option value="Rohim">Rohim</option>
+        <option value="Salim">Salim</option>
+        <option value="Eko">Eko</option>
+        <option value="Rofi">Rofi</option>
+        <option value="Sadam">Sadam</option>
     </select>
 
     <label for="second_driver">Second Driver:</label>
     <select id="second_driver">
-        <option value="andi">Andi</option>
-        <option value="hermanto">Hermanto</option>
-        <option value="redi">Redi</option>
-        <option value="triono">Triono</option>
-        <option value="samsul">Samsul</option>
-        <option value="rahmat">Rahmat</option>
-        <option value="fahri">Fahri</option>
-        <option value="rohim">Rohim</option>
-        <option value="salim">Salim</option>
-        <option value="eko">Eko</option>
-        <option value="rofi">Rofi</option>
-        <option value="sadam">Sadam</option>
+        <option value="Andi">Andi</option>
+        <option value="Hermanto">Hermanto</option>
+        <option value="Redi">Redi</option>
+        <option value="Triono">Triono</option>
+        <option value="Samsul">Samsul</option>
+        <option value="Rahmat">Rahmat</option>
+        <option value="Fahri">Fahri</option>
+        <option value="Rohim">Rohim</option>
+        <option value="Salim">Salim</option>
+        <option value="Eko">Eko</option>
+        <option value="Rofi">Rofi</option>
+        <option value="Sadam">Sadam</option>
     </select>
 
     <button onclick="kirimKeTelegram()">KIRIM</button>
-    <button class="exit" onclick="keluar()">KELUAR</button>
 </div>
 
 <script>
     function kirimKeTelegram() {
-        let token = "8121564417:AAEtuNjpJq8BFDI-iYhiXLadlTYbcPsfnws"; // Token Anda
-        let chatId = "-4643025711"; // ID chat Anda
+        let token = "8121564417:AAEtuNjpJq8BFDI-iYhiXLadlTYbcPsfnws";
+        let chatId = "-4643025711";
 
         let rute = document.getElementById("rute").value;
-        let kantorAsal = document.getElementById("kantor_asal").value;
+        let n22 = document.getElementById("n22").value || ".";
+        let berangkat = document.getElementById("berangkat").value || "12";
+        let noPlat = document.getElementById("no_plat").value || "Ahha";
         let kantorTujuan1 = document.getElementById("kantor_tujuan1").value;
         let jumlahKantong1 = document.getElementById("jumlah_kantong1").value;
         let kantorTujuan2 = document.getElementById("kantor_tujuan2").value;
@@ -167,26 +140,22 @@
         let secondDriver = document.getElementById("second_driver").value;
 
         let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n`;
-        pesan += `<RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
-        if (kantorTujuan2 !== "NONE" && kantorTujuan2 !== "") {
-            pesan += ` ➡️ ${kantorTujuan2}`;
-        }
-        pesan += `>\n\n`;
+        pesan += `<RUTE ${rute}>\n\n`;
 
-        pesan += `▫️N22.                         ➡️""\n`;
-        pesan += `▫️Berangkat jam        ➡️""\n`;
-        pesan += `▫️No plat                    ➡️ ""\n\n`;
+        pesan += `▫️N22.                         ➡️${n22}\n`;
+        pesan += `▫️Berangkat jam        ➡️${berangkat}\n`;
+        pesan += `▫️No plat                    ➡️${noPlat}\n\n`;
 
         pesan += `▫️Jumlah kantong ⤵️\n`;
         if (jumlahKantong1) {
             pesan += `  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
         }
-        if (jumlahKantong2 && kantorTujuan2 !== "NONE") {
+        if (jumlahKantong2) {
             pesan += `  ${kantorTujuan2} \"${jumlahKantong2}\" Ktg\n`;
         }
 
-        pesan += `\n▫️Driver ➡️ ${driver}\n`;
-        pesan += `▫️Second Driver ➡️ ${secondDriver}\n`;
+        pesan += `\n▫️Driver                  ➡️${driver}\n`;
+        pesan += `▫️Second Driver     ➡️${secondDriver}\n`;
         pesan += `"TERIMA KASIH"..!!🙏🙏🙏`;
 
         let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
@@ -204,10 +173,6 @@
                 console.error("Error:", error);
                 alert("Terjadi kesalahan!");
             });
-    }
-
-    function keluar() {
-        window.close();
     }
 </script>
 
