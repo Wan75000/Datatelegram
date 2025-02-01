@@ -7,7 +7,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('default_background.jpg'); /* Ganti dengan background default atau kosong jika tidak ingin */
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,7 +18,7 @@
             height: 100vh;
         }
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -38,7 +40,7 @@
             margin-top: 10px;
             text-align: left;
         }
-        select, input {
+        select, input, button {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
@@ -46,23 +48,13 @@
             border-radius: 4px;
         }
         button {
-            width: 100%;
-            padding: 10px;
             background-color: navy;
             color: white;
-            border: none;
-            border-radius: 4px;
             cursor: pointer;
             margin-top: 15px;
         }
         button:hover {
             background-color: darkblue;
-        }
-        .exit {
-            background-color: red;
-        }
-        .exit:hover {
-            background-color: darkred;
         }
         .inline {
             display: flex;
@@ -75,6 +67,13 @@
         .arrow {
             margin-left: 10px;
             font-size: 18px;
+        }
+        input[type="file"] {
+            padding: 0;
+            margin-top: 5px;
+        }
+        .file-upload {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -135,21 +134,51 @@
     <input type="text" id="jadwal" placeholder="Masukkan jadwal">
 
     <label for="berangkat_jam">Berangkat Jam:</label>
-    <input type="text" id="berangkat_jam" placeholder="Masukkan waktu berangkat">
+    <input type="time" id="berangkat_jam">
 
     <label for="plat_nomor">No Plat:</label>
     <input type="text" id="plat_nomor" placeholder="Masukkan nomor plat">
 
+    <label for="driver">Driver:</label>
     <div class="inline">
-        <div>
-            <label for="driver">Driver:</label>
-            <input type="text" id="driver" placeholder="Masukkan nama driver">
-        </div>
-        <div>
-            <label for="second_driver">Second Driver:</label>
-            <input type="text" id="second_driver" placeholder="Masukkan nama second driver">
-        </div>
+        <input type="text" id="driver" placeholder="Pilih Driver">
+        <select id="driver_list">
+            <option value="andi">Andi</option>
+            <option value="hermanto">Hermanto</option>
+            <option value="redi">Redi</option>
+            <option value="triono">Triono</option>
+            <option value="samsul">Samsul</option>
+            <option value="rahmat">Rahmat</option>
+            <option value="fahri">Fahri</option>
+            <option value="rohim">Roheim</option>
+            <option value="salim">Salim</option>
+            <option value="eko">Eko</option>
+            <option value="rofi">Rofi</option>
+            <option value="sadam">Sadam</option>
+        </select>
     </div>
+
+    <label for="second_driver">Second Driver:</label>
+    <div class="inline">
+        <input type="text" id="second_driver" placeholder="Pilih Second Driver">
+        <select id="second_driver_list">
+            <option value="andi">Andi</option>
+            <option value="hermanto">Hermanto</option>
+            <option value="redi">Redi</option>
+            <option value="triono">Triono</option>
+            <option value="samsul">Samsul</option>
+            <option value="rahmat">Rahmat</option>
+            <option value="fahri">Fahri</option>
+            <option value="rohim">Roheim</option>
+            <option value="salim">Salim</option>
+            <option value="eko">Eko</option>
+            <option value="rofi">Rofi</option>
+            <option value="sadam">Sadam</option>
+        </select>
+    </div>
+
+    <label for="upload_image">Upload Foto:</label>
+    <input type="file" id="upload_image" accept="image/*" capture="camera">
 
     <button onclick="kirimKeTelegram()">KIRIM</button>
     <button class="exit" onclick="keluar()">KELUAR</button>
@@ -169,8 +198,8 @@
         let jadwal = document.getElementById("jadwal").value;
         let berangkatJam = document.getElementById("berangkat_jam").value;
         let platNomor = document.getElementById("plat_nomor").value;
-        let driver = document.getElementById("driver").value;
-        let secondDriver = document.getElementById("second_driver").value;
+        let driver = document.getElementById("driver_list").value;
+        let secondDriver = document.getElementById("second_driver_list").value;
 
         let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n`;
         pesan += `<RUTE ${kantorAsal} - ${kantorTujuan1}`;
@@ -192,29 +221,4 @@
         }
 
         pesan += `\n▫️Driver                  ➡️ ${driver} ▫️Second driver    ➡️ ${secondDriver}\n`;
-        pesan += `"TERIMA KASIH"..!!🙏🙏🙏`;
-
-        let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.ok) {
-                    alert("Pesan berhasil dikirim ke Telegram!");
-                } else {
-                    alert("Gagal mengirim pesan ke Telegram.");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Terjadi kesalahan!");
-            });
-    }
-
-    function keluar() {
-        window.close();
-    }
-</script>
-
-</body>
-</html>
+        pesan += `"TERIMA
