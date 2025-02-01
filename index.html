@@ -80,7 +80,7 @@
 
     <label for="kantor_asal">Kantor Asal:</label>
     <select id="kantor_asal">
-        <option value="Pilihan">Pilihan</option>
+        <option value="">Pilihan</option>
         <option value="KC SMR 75000">KC SMR 75000</option>
         <option value="KCU BPP 76100">KCU BPP 76100</option>
         <option value="SPP BJM 70400">SPP BJM 70400</option>
@@ -88,7 +88,7 @@
 
     <label for="kantor_tujuan1">Kantor Tujuan 1:</label>
     <select id="kantor_tujuan1">
-        <option value="Pilihan">Pilihan</option>
+        <option value="">Pilihan</option>
         <option value="KC SMR 75000">KC SMR 75000</option>
         <option value="KCU BPP 76100">KCU BPP 76100</option>
         <option value="SPP BJM 70400">SPP BJM 70400</option>
@@ -97,7 +97,7 @@
 
     <label for="kantor_tujuan2">Kantor Tujuan 2:</label>
     <select id="kantor_tujuan2">
-        <option value="Pilihan">Pilihan</option>
+        <option value="">Pilihan</option>
         <option value="KC SMR 75000">KC SMR 75000</option>
         <option value="KCU BPP 76100">KCU BPP 76100</option>
         <option value="SPP BJM 70400">SPP BJM 70400</option>
@@ -133,18 +133,25 @@
         let driver = document.getElementById("driver").value;
         let secondDriver = document.getElementById("second_driver").value;
 
+        // Tentukan jadwal otomatis berdasarkan kantor asal
+        let jadwalN22 = "17:30 WITA";
+        if (kantorAsal === "KC SMR 75000" || kantorAsal === "KC TNR 77300") {
+            jadwalN22 = "00:00 WITA";
+        }
+
+        // Buat pesan output
         let pesan = `🏁🏁🏁 ${rute} 🏁🏁🏁\n`;
         pesan += `RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
-        if (kantorTujuan2 !== "Pilihan") {
+        if (kantorTujuan2) {
             pesan += ` ➡️ ${kantorTujuan2}`;
         }
-        pesan += `\n\n▫️Jadwal N22 ➡️ 00:00 WITA\n`;
+        pesan += `\n\n▫️Jadwal N22 ➡️ ${jadwalN22}\n`;
         pesan += `▫️Berangkat jam ➡️ ${jamBerangkat}\n`;
-        pesan += `▫️No plat. ➡️ ${noPlat}\n\n`;
+        pesan += `▫️No plat ➡️ ${noPlat}\n\n`;
 
-        pesan += `▫️Jumlah kantong ⤵️\n`;
+        // Tambahkan jumlah kantong jika ada
         if (jumlahKantong1) {
-            pesan += `  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
+            pesan += `▫️Jumlah kantong ⤵️\n  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
         }
         if (jumlahKantong2) {
             pesan += `  ${kantorTujuan2} \"${jumlahKantong2}\" Ktg\n`;
@@ -152,8 +159,9 @@
 
         pesan += `\n▫️Driver ➡️ ${driver}\n`;
         pesan += `▫️Second driver ➡️ ${secondDriver}\n\n`;
-        pesan += `   "TERIMA KASIH"..!!🙏🙏🙏`;
+        pesan += `"TERIMA KASIH"..!!🙏🙏🙏`;
 
+        // Tampilkan pesan di alert
         alert(pesan);
     }
 
