@@ -1,4 +1,4 @@
-ģ<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -166,21 +166,28 @@
         let driver = document.getElementById("driver").value;
         let secondDriver = document.getElementById("second_driver").value;
 
-        let pesan = `🏁🏁🏁 ${rute} 🏁🏁🏁\n`;
-        pesan += `RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
+        let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n`;
+        pesan += `<RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
         if (kantorTujuan2 !== "NONE" && kantorTujuan2 !== "") {
             pesan += ` ➡️ ${kantorTujuan2}`;
         }
-        pesan += `\n\n▫️Jumlah kantong ⤵️\n`;
+        pesan += `>\n\n`;
+
+        pesan += `▫️N22.                         ➡️""\n`;
+        pesan += `▫️Berangkat jam        ➡️""\n`;
+        pesan += `▫️No plat                    ➡️ ""\n\n`;
+
+        pesan += `▫️Jumlah kantong ⤵️\n`;
         if (jumlahKantong1) {
             pesan += `  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
         }
         if (jumlahKantong2 && kantorTujuan2 !== "NONE") {
             pesan += `  ${kantorTujuan2} \"${jumlahKantong2}\" Ktg\n`;
         }
-        pesan += `\n▫️Driver ➡️ ${driver}`;
-        pesan += `\n▫️Second Driver ➡️ ${secondDriver}`;
-        pesan += `\n\n"TERIMA KASIH"..!!🙏🙏🙏`;
+
+        pesan += `\n▫️Driver ➡️ ${driver}\n`;
+        pesan += `▫️Second Driver ➡️ ${secondDriver}\n`;
+        pesan += `"TERIMA KASIH"..!!🙏🙏🙏`;
 
         let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
 
