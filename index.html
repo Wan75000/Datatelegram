@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Rute Angkutan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: navy;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .navy-box {
+            background-color: navy;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: navy;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Rute Angkutan</h2>
+
+    <div class="navy-box">ARPOS BJM-BPP-SMR</div>
+
+    <label for="kantor_asal">Kantor Asal:</label>
+    <select id="kantor_asal">
+        <option value="KC SAMARINDA 75000">KC SAMARINDA 75000</option>
+    </select>
+
+    <label for="kantor_tujuan">Kantor Tujuan:</label>
+    <select id="kantor_tujuan" onchange="isiJadwal()">
+        <option value="SPP BANJARMASIN 70400">SPP BANJARMASIN 70400</option>
+        <option value="KCU BALIKPAPAN 76100">KCU BALIKPAPAN 76100</option>
+        <option value="KC BONTANG 75300">KC BONTANG 75300</option>
+        <option value="KC TANJUNG REDEB 77300">KC TANJUNG REDEB 77300</option>
+        <option value="KC TANJUNG SELOR 77000">KC TANJUNG SELOR 77000</option>
+    </select>
+
+    <label for="jumlah_kantong">Jumlah Kantong:</label>
+    <input type="number" id="jumlah_kantong" min="1">
+
+    <label for="jam_berangkat">Jam Berangkat:</label>
+    <input type="time" id="jam_berangkat">
+
+    <label for="jadwal">Jadwal N22:</label>
+    <input type="text" id="jadwal" readonly>
+
+    <label for="no_plat">No Plat:</label>
+    <input type="text" id="no_plat">
+
+    <label for="driver1">Driver 1:</label>
+    <input type="text" id="driver1">
+
+    <label for="driver2">Driver 2:</label>
+    <input type="text" id="driver2">
+
+    <button onclick="kirimKeTelegram()">KIRIM</button>
+</div>
+
+<script>
+    function isiJadwal() {
+        let tujuan = document.getElementById("kantor_tujuan").value;
+        let jadwalInput = document.getElementById("jadwal");
+        jadwalInput.value = "N22 - " + tujuan;
+    }
+
+    function kirimKeTelegram() {
+        let kantorAsal = document.getElementById("kantor_asal").value;
+        let kantorTujuan = document.getElementById("kantor_tujuan").value;
+        let jumlahKantong = document.getElementById("jumlah_kantong").value;
+        let jamBerangkat = document.getElementById("jam_berangkat").value;
+        let jadwal = document.getElementById("jadwal").value;
+        let noPlat = document.getElementById("no_plat").value;
+        let driver1 = document.getElementById("driver1").value;
+        let driver2 = document.getElementById("driver2").value;
+
+        let message = `
+🚛 **Manifest Rute Angkutan**
+📍 *Kantor Asal:* ${kantorAsal}
+📍 *Kantor Tujuan:* ${kantorTujuan}
+📦 *Jumlah Kantong:* ${jumlahKantong}
+⏰ *Jam Berangkat:* ${jamBerangkat}
+📅 *Jadwal:* ${jadwal}
+🚗 *No Plat:* ${noPlat}
+👨‍✈️ *Driver 1:* ${driver1}
+👨‍✈️ *Driver 2:* ${driver2}
+`;
+
+        let botToken = "8121564417:AAF1ndgjU3K2xnfd_btXeo0qpXgcTcUHL34";
+        let chatId = "-4643025711";
+
+        let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("Data berhasil dikirim ke Telegram!");
+                } else {
+                    alert("Gagal mengirim ke Telegram!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script>
+
+</body>
+</html>
