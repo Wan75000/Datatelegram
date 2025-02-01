@@ -119,6 +119,21 @@
     </select>
     <input type="number" id="jumlah_kantong2" min="1" placeholder="Jumlah Kantong">
 
+    <label for="jadwal">Jadwal:</label>
+    <input type="text" id="jadwal" placeholder="Contoh: N22">
+
+    <label for="jam">Jam Berangkat:</label>
+    <input type="text" id="jam" placeholder="Contoh: 08:00">
+
+    <label for="plat">Nomor Plat:</label>
+    <input type="text" id="plat" placeholder="Contoh: AB 1234 XY">
+
+    <label for="driver">Driver:</label>
+    <input type="text" id="driver" placeholder="Driver">
+
+    <label for="second_driver">Second Driver:</label>
+    <input type="text" id="second_driver" placeholder="Second Driver">
+
     <button onclick="kirimKeTelegram()">KIRIM</button>
     <button class="exit" onclick="keluar()">KELUAR</button>
 </div>
@@ -134,19 +149,34 @@
         let jumlahKantong1 = document.getElementById("jumlah_kantong1").value;
         let kantorTujuan2 = document.getElementById("kantor_tujuan2").value;
         let jumlahKantong2 = document.getElementById("jumlah_kantong2").value;
+        let jadwal = document.getElementById("jadwal").value;
+        let jam = document.getElementById("jam").value;
+        let plat = document.getElementById("plat").value;
+        let driver = document.getElementById("driver").value;
+        let secondDriver = document.getElementById("second_driver").value;
 
         let pesan = `🏁🏁🏁 ${rute} 🏁🏁🏁\n`;
         pesan += `RUTE ${kantorAsal} ➡️ ${kantorTujuan1}`;
         if (kantorTujuan2 !== "NONE" && kantorTujuan2 !== "") {
             pesan += ` ➡️ ${kantorTujuan2}`;
         }
-        pesan += `\n\n▫️Jumlah kantong ⤵️\n`;
+        pesan += `\n\n▫️Jadwal ${jadwal} ➡️\n`;
+        pesan += `▫️Berangkat jam ${jam} ➡️\n`;
+        pesan += `▫️No plat ${plat} ➡️\n`;
+
+        pesan += `\n▫️Jumlah kantong ⤵️\n`;
         if (jumlahKantong1) {
             pesan += `  ${kantorTujuan1} \"${jumlahKantong1}\" Ktg\n`;
         }
         if (jumlahKantong2 && kantorTujuan2 !== "NONE") {
             pesan += `  ${kantorTujuan2} \"${jumlahKantong2}\" Ktg\n`;
         }
+
+        pesan += `\n▫️Driver ${driver} ➡️\n`;
+        if (secondDriver) {
+            pesan += `▫️Second driver ${secondDriver} ➡️\n`;
+        }
+
         pesan += `\n"TERIMA KASIH"..!!🙏🙏🙏`;
 
         let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
