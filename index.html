@@ -82,27 +82,40 @@
 
     <!-- Kantor Asal -->
     <label for="kantor_asal">Kantor Asal:</label>
-    <input type="text" id="kantor_asal" list="kantor_list" placeholder="Pilih Kantor Asal">
-    
+    <select id="kantor_asal">
+<option value="KC SMR 75000">KC SMR 75000</option>
+        <option value="KCU BPP 76100">KCU BPP 76100</option>
+        <option value="SPP BJM 70400">SPP BJM 70400</option>
+        <option value="KC BOT 75300">KC BOT 75300</option>
+        <option value="KC TSE 77000">KC TSE 77000</option>
+        <option value="KC TNR 77300">KC TNR 77300</option>
+        <option value="KC TRG 75500">KC TRG 75500</option>
+        </select>
     <!-- Kantor Tujuan 1 -->
     <label for="kantor_tujuan1">Kantor Tujuan 1:</label>
-    <input type="text" id="kantor_tujuan1" list="kantor_list" placeholder="Pilih Kantor Tujuan 1">
+    <select id="kantor_tujuan1">
+<option value="KC SMR 75000">KC SMR 75000</option>
+        <option value="KCU BPP 76100">KCU BPP 76100</option>
+        <option value="SPP BJM 70400">SPP BJM 70400</option>
+        <option value="KC BOT 75300">KC BOT 75300</option>
+        <option value="KC TSE 77000">KC TSE 77000</option>
+        <option value="KC TNR 77300">KC TNR 77300</option>
+        <option value="KC TRG 75500">KC TRG 75500</option>
+        </select>
     <input type="number" id="jumlah_kantong1" min="1" placeholder="Jumlah Kantong">
 
     <!-- Kantor Tujuan 2 (Opsional) -->
-    <label for="kantor_tujuan2">Kantor Tujuan 2 (Opsional):</label>
-    <input type="text" id="kantor_tujuan2" list="kantor_list" placeholder="Pilih Kantor Tujuan 2">
+    <label for="kantor_tujuan2">Kantor Tujuan 2:</label>
+    <select id="kantor_tujuan2">
+<option value="KC SMR 75000">KC SMR 75000</option>
+        <option value="KCU BPP 76100">KCU BPP 76100</option>
+        <option value="SPP BJM 70400">SPP BJM 70400</option>
+        <option value="KC BOT 75300">KC BOT 75300</option>
+        <option value="KC TSE 77000">KC TSE 77000</option>
+        <option value="KC TNR 77300">KC TNR 77300</option>
+        <option value="KC TRG 75500">KC TRG 75500</option>
+    </select>
     <input type="number" id="jumlah_kantong2" min="1" placeholder="Jumlah Kantong">
-
-    <datalist id="kantor_list">
-        <option value="KC SMR 75000">
-        <option value="KCU BPP 76100">
-        <option value="SPP BJM 70400">
-        <option value="KC BOT 75300">
-        <option value="KC TSE 77000">
-        <option value="KC TNR 77300">
-        <option value="KC TRG 75500">
-    </datalist>
 
     <!-- Driver and Second Driver Selection -->
     <label for="driver">Driver:</label>
@@ -122,13 +135,20 @@
     </select>
 
     <label for="second_driver">Second Driver:</label>
-    <select id="second_driver">
-        <option value="Eko">Eko</option>
-        <option value="Rofi">Rofi</option>
-        <option value="Sadam">Sadam</option>
+    <select id="driver">
+        <option value="Andi">Andi</option>
+        <option value="Hermanto">Hermanto</option>
+        <option value="Redi">Redi</option>
+        <option value="Triono">Triono</option>
+        <option value="Samsul">Samsul</option>
         <option value="Rahmat">Rahmat</option>
+        <option value="Sadam">Sadam</option>
+        <option value="Rofi">Rofi</option>
+        <option value="Eko">Eko</option>
+        <option value="Salim">Salim</option>
+        <option value="Rohim">Rohim</option>
+        <option value="Fahri">Fahri</option>
     </select>
-
     <!-- Upload Foto -->
     <label for="foto">Upload Foto:</label>
     <input type="file" id="foto" accept="image/*">
