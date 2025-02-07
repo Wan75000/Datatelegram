@@ -28,13 +28,16 @@
         <option value="SPP BJM 70400">SPP BJM 70400</option>
     </select>
 
-    <label for="jumlahKantong">Jumlah Kantong:</label>
-    <input type="text" id="jumlahKantong" placeholder="Isi jumlah kantong (KTG)">
+    <label for="jumlahKantong1">Jumlah Kantong 1:</label>
+    <input type="text" id="jumlahKantong1" placeholder="Masukkan jumlah kantong">
+
+    <label for="jumlahKantong2">Jumlah Kantong 2:</label>
+    <input type="text" id="jumlahKantong2" placeholder="Masukkan jumlah kantong">
 
     <label for="berangkatJam">BERANGKAT JAM:</label>
-    <input type="text" id="berangkatJam" readonly>
+    <input type="text" id="berangkatJam" placeholder="Masukkan Jam">
 
-    <label for="tnkb">TNKB:</label>
+    <label for="tnkb">TNKB (No Plat):</label>
     <input type="text" id="tnkb" placeholder="Masukkan No Plat">
 
     <label for="driver">Driver:</label>
@@ -73,13 +76,14 @@
         function kirimPesan() {
             let kantorAsal = document.getElementById("kantorAsal").value;
             let kantorTujuan = document.getElementById("kantorTujuan").value;
-            let jumlahKantong = document.getElementById("jumlahKantong").value;
+            let jumlahKantong1 = document.getElementById("jumlahKantong1").value;
+            let jumlahKantong2 = document.getElementById("jumlahKantong2").value;
             let berangkatJam = document.getElementById("berangkatJam").value;
             let tnkb = document.getElementById("tnkb").value;
             let driver = document.getElementById("driver").value;
             let secondDriver = document.getElementById("secondDriver").value;
 
-            let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n<RUTE ${kantorAsal} - ${kantorTujuan}>\n\n▫️N22. ➡️.\n▫️Berangkat jam ➡️${berangkatJam}\n▫️No plat ➡️ ${tnkb}\n\n▫️Jumlah kantong ⤵️\n  ${kantorTujuan} "${jumlahKantong}" Ktg\n\n▫️Driver ➡️ ${driver}\n▫️Second driver ➡️ ${secondDriver}\n\n"TERIMA KASIH"..!!🙏🙏🙏`;
+            let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n<RUTE ${kantorAsal} - ${kantorTujuan}>\n\n▫️N22. ➡️.\n▫️Berangkat jam ➡️${berangkatJam}\n▫️No plat ➡️ ${tnkb}\n\n▫️Jumlah kantong ⤵️\n  ${kantorAsal} "${jumlahKantong1}" Ktg\n  ${kantorTujuan} "${jumlahKantong2}" Ktg\n\n▫️Driver ➡️ ${driver} ▫️Second driver ➡️ ${secondDriver}\n\n"TERIMA KASIH"..!!🙏🙏🙏`;
 
             let botToken = "8121564417:AAFPo2-p_SbDZGbq74PibQ7oqJu3KOfm05Q";
             let chatId = "-4643025711";
