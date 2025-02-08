@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,39 +8,19 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
-            background: linear-gradient(to bottom, #ffffff, #001f3f);
-            color: white;
-            position: relative;
         }
         h2 {
             text-align: center;
-            color: #001f3f;
         }
         .container {
             max-width: 400px;
             margin: auto;
             text-align: left;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            z-index: 2;
         }
-        label {
-            display: block;
-            width: 100%;
-            font-weight: bold;
-            color: #001f3f;
-        }
-        select, input {
+        label, select, input {
             display: block;
             width: 100%;
             margin-bottom: 10px;
-            padding: 5px;
-            border: 1px solid #001f3f;
-            border-radius: 5px;
-            background-color: #e0e0e0;
-            color: #000;
         }
         button {
             width: 100%;
@@ -58,169 +37,164 @@
             width: 100%;
             display: none;
         }
-        #photoPreview {
-            width: 100%;
-            display: none;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
-        #customBackground {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-            display: none;
-        }
     </style>
 </head>
-<body>
+<body><h2>POS IND INDONESIA</h2>
 
-    <img id="customBackground" alt="Custom Background">
+<div class="container">
+    <label>KANTOR ASAL:</label>
+    <select id="asal">
+        <option>KC SMR 75000</option>
+        <option>KC BOT 75300</option>
+        <option>KC TSE 77000</option>
+        <option>KC TNR 77300</option>
+        <option>KCU BPP 76100</option>
+        <option>SPP BJM 70400</option>
+        <option>NONE</option>
+    </select>
 
-    <h2>POS IND INDONESIA</h2>
+    <label>KANTOR TUJUAN I:</label>
+    <select id="tujuan1">
+        <option>KC SMR 75000</option>
+        <option>KC BOT 75300</option>
+        <option>KC TSE 77000</option>
+        <option>KC TNR 77300</option>
+        <option>KCU BPP 76100</option>
+        <option>SPP BJM 70400</option>
+        <option>NONE</option>
+    </select>
 
-    <div class="container">
-        <label>KANTOR ASAL:</label>
-        <select id="asal">
-            <option>KC SMR 75000</option>
-            <option>KC BOT 75300</option>
-            <option>KC TSE 77000</option>
-            <option>KC TNR 77300</option>
-            <option>KCU BPP 76100</option>
-            <option>SPP BJM 70400</option>
-            <option>NONE</option>
-        </select>
+    <label>JUMLAH KANTONG:</label>
+    <input type="text" id="jumlah1" placeholder="ISI JUMLAH KANTONG">
 
-        <label>KANTOR TUJUAN:</label>
-        <select id="tujuan1">
-            <option>KC SMR 75000</option>
-            <option>KC BOT 75300</option>
-            <option>KC TSE 77000</option>
-            <option>KC TNR 77300</option>
-            <option>KCU BPP 76100</option>
-            <option>SPP BJM 70400</option>
-            <option>NONE</option>
-        </select>
+    <label>KANTOR TUJUAN II:</label>
+    <select id="tujuan2">
+        <option>KC SMR 75000</option>
+        <option>KC BOT 75300</option>
+        <option>KC TSE 77000</option>
+        <option>KC TNR 77300</option>
+        <option>KCU BPP 76100</option>
+        <option>SPP BJM 70400</option>
+        <option>NONE</option>
+    </select>
 
-        <label>JUMLAH KANTONG:</label>
-        <input type="text" id="jumlah1" placeholder="ISI JUMLAH KANTONG">
+    <label>JUMLAH KANTONG:</label>
+    <input type="text" id="jumlah2" placeholder="ISI JUMLAH KANTONG">
 
-        <label>BERANGKAT JAM:</label>
-        <input type="text" id="berangkatJam" placeholder="ISI JAM">
+    <label>BERANGKAT JAM:</label>
+    <input type="text" id="berangkatJam" placeholder="ISI JAM">
 
-        <label>TNKB:</label>
-        <input type="text" id="tnkb" placeholder="ISI NOMOR PLAT">
+    <label>TNKB:</label>
+    <input type="text" id="tnkb" placeholder="ISI NOMOR PLAT">
 
-        <label>DRIVER:</label>
-        <select id="driver">
-            <option>ANDI</option>
-            <option>HERMANTO</option>
-            <option>SAMSUL</option>
-            <option>RAHMAT</option>
-            <option>REDI</option>
-            <option>TRIONO</option>
-            <option>ROFI</option>
-            <option>SADAM</option>
-            <option>EKO</option>
-            <option>SALIM</option>
-        </select>
+    <label>DRIVER:</label>
+    <select id="driver">
+        <option>ANDI</option>
+        <option>HERMANTO</option>
+        <option>SAMSUL</option>
+        <option>RAHMAT</option>
+        <option>REDI</option>
+        <option>TRIONO</option>
+        <option>ROFI</option>
+        <option>SADAM</option>
+        <option>EKO</option>
+        <option>SALIM</option>
+    </select>
 
-        <label>UNGGAH LATAR BELAKANG:</label>
-        <input type="file" id="uploadBackground" accept="image/*" onchange="setBackgroundImage()">
+    <label>SECOND DRIVER:</label>
+    <select id="secondDriver">
+        <option>NONE</option>
+        <option>ANDI</option>
+        <option>HERMANTO</option>
+        <option>SAMSUL</option>
+        <option>RAHMAT</option>
+        <option>REDI</option>
+        <option>TRIONO</option>
+        <option>ROFI</option>
+        <option>SADAM</option>
+        <option>EKO</option>
+        <option>SALIM</option>
+    </select>
 
-        <label>AMBIL FOTO:</label>
-        <video id="video" autoplay></video>
-        <button onclick="capturePhoto()">📸 Buka Kamera</button>
-        <canvas id="canvas"></canvas>
-        <img id="photoPreview" alt="Foto yang diambil">
+    <video id="video" autoplay></video>
+    <canvas id="canvas"></canvas>
+    <button onclick="startCamera()">AKTIFKAN KAMERA</button>
+    <button onclick="capturePhoto()">AMBIL FOTO</button>
+    <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
+</div>
 
-        <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
-    </div>
+<script>
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+    let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
+    let chatId = "-4624208579"; // Ganti dengan chat ID
 
-    <script>
-        let video = document.getElementById('video');
-        let canvas = document.getElementById('canvas');
-        let photoPreview = document.getElementById('photoPreview');
-        let customBackground = document.getElementById("customBackground");
-        let imageDataURL = null;
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: "environment" } // Gunakan kamera belakang
+        })
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = "block";
+        })
+        .catch(error => {
+            alert("Gagal mengakses kamera!");
+        });
+    }
 
-        function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then((stream) => {
-                    video.srcObject = stream;
-                    video.style.display = 'block';
-                })
-                .catch((err) => {
-                    alert('Kamera tidak dapat diakses: ' + err);
-                });
-        }
+    function capturePhoto() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        video.style.display = "none";
+        canvas.style.display = "block";
+    }
 
-        function capturePhoto() {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            let ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            imageDataURL = canvas.toDataURL('image/png');
-            photoPreview.src = imageDataURL;
-            photoPreview.style.display = 'block';
-            video.style.display = 'none';
-        }
+    function generateMessage() {
+        let asal = document.getElementById("asal").value.toUpperCase();
+        let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
+        let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
+        let jumlah1 = document.getElementById("jumlah1").value || "0";
+        let jumlah2 = document.getElementById("jumlah2").value || "0";
+        let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
+        let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
+        let driver = document.getElementById("driver").value.toUpperCase();
+        let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
 
-        function setBackgroundImage() {
-            let fileInput = document.getElementById("uploadBackground");
+        let message = `🏁🏁🏁 POSLOG 🏁🏁🏁\n\n` +
+                      `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
+                      `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
+                      `▫️TNKB ➡️ ${tnkb}\n\n` +
+                      `▫️JUMLAH KANTONG ⤵️\n` +
+                      `     ${tujuan1} "${jumlah1}" KTG\n` +
+                      `     ${tujuan2} "${jumlah2}" KTG\n\n` +
+                      `▫️DRIVER ➡️ ${driver}\n` +
+                      `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
+                      `"TERIMA KASIH"..!!🙏🙏🙏`;
 
-            if (fileInput.files && fileInput.files[0]) {
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    customBackground.src = e.target.result;
-                    customBackground.style.display = "block";
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            }
-        }
+        sendMessageToTelegram(message);
+    }
 
-        function generateMessage() {
-            let asal = document.getElementById("asal").value.toUpperCase();
-            let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
-            let jumlah1 = document.getElementById("jumlah1").value || "0";
-            let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
-            let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
-            let driver = document.getElementById("driver").value.toUpperCase();
+    function sendMessageToTelegram(message) {
+        let imageData = canvas.toDataURL("image/jpeg").split(",")[1];
 
-            let message = `🏁🏁🏁 POSLOG 🏁🏁🏁\n\n` +
-                          `▫️RUTE: ${asal} - ${tujuan1}\n\n` +
-                          `▫️TIBA JAM ➡️ ${berangkatJam}\n` +
-                          `▫️TNKB ➡️ ${tnkb}\n\n` +
-                          `▫️DRIVER ➡️ ${driver}\n\n` +
-                          `"TERIMA KASIH"..!!🙏🙏🙏`;
+        let formData = new FormData();
+        formData.append("chat_id", chatId);
+        formData.append("photo", new Blob([Uint8Array.from(atob(imageData), c => c.charCodeAt(0))], { type: "image/jpeg" }));
 
-            sendToTelegram(message, imageDataURL);
-        }
-
-        function sendToTelegram(text, photo) {
-            const botToken = "YOUR_BOT_TOKEN";
-            const chatId = "YOUR_CHAT_ID";
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chat_id: chatId, text: text })
-            });
-
-            if (photo) {
-                fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ chat_id: chatId, photo: photo })
-                });
-            }
-        }
-
-        startCamera();
-    </script>
+        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(() => {
+            let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            fetch(urlMessage);
+        })
+        .catch(error => alert("GAGAL MENGIRIM FOTO!"));
+    }
+</script>
 
 </body>
 </html>
