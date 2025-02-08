@@ -3,97 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Kirim Data ke Bot Telegram</title>
+    <title>POS IND INDONESIA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            text-align: left;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        video, canvas {
+            width: 100%;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h2>Form Kirim Data</h2>
 
-    <label for="kantorAsal">KANTOR ASAL:</label>
-    <select id="kantorAsal">
-        <option value="KC SMR 75000">KC SMR 75000</option>
-        <option value="KC BOT 75300">KC BOT 75300</option>
-        <option value="KC TSE 77000">KC TSE 77000</option>
-        <option value="KC TNR 77300">KC TNR 77300</option>
-        <option value="KCU BPP 76100">KCU BPP 76100</option>
-        <option value="SPP BJM 70400">SPP BJM 70400</option>
-    </select>
+    <h2>POS IND INDONESIA</h2>
 
-    <label for="kantorTujuan">KANTOR TUJUAN:</label>
-    <select id="kantorTujuan">
-        <option value="KC SMR 75000">KC SMR 75000</option>
-        <option value="KC BOT 75300">KC BOT 75300</option>
-        <option value="KC TSE 77000">KC TSE 77000</option>
-        <option value="KC TNR 77300">KC TNR 77300</option>
-        <option value="KCU BPP 76100">KCU BPP 76100</option>
-        <option value="SPP BJM 70400">SPP BJM 70400</option>
-    </select>
+    <div class="container">
+        <label>KANTOR ASAL:</label>
+        <select id="asal">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
 
-    <label for="jumlahKantong1">Jumlah Kantong 1:</label>
-    <input type="text" id="jumlahKantong1" placeholder="Masukkan jumlah kantong">
+        <label>KANTOR TUJUAN I:</label>
+        <select id="tujuan1">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
 
-    <label for="jumlahKantong2">Jumlah Kantong 2:</label>
-    <input type="text" id="jumlahKantong2" placeholder="Masukkan jumlah kantong">
+        <label>JUMLAH KANTONG:</label>
+        <input type="text" id="jumlah1" placeholder="ISI JUMLAH KANTONG">
 
-    <label for="berangkatJam">BERANGKAT JAM:</label>
-    <input type="text" id="berangkatJam" placeholder="Masukkan Jam">
+        <label>KANTOR TUJUAN II:</label>
+        <select id="tujuan2">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
 
-    <label for="tnkb">TNKB (No Plat):</label>
-    <input type="text" id="tnkb" placeholder="Masukkan No Plat">
+        <label>JUMLAH KANTONG:</label>
+        <input type="text" id="jumlah2" placeholder="ISI JUMLAH KANTONG">
 
-    <label for="driver">Driver:</label>
-    <select id="driver">
-        <option value="Andi">Andi</option>
-        <option value="Hermanto">Hermanto</option>
-        <option value="Samsul">Samsul</option>
-        <option value="Rahmat">Rahmat</option>
-        <option value="Redi">Redi</option>
-        <option value="Triono">Triono</option>
-        <option value="Rofi">Rofi</option>
-        <option value="Sadam">Sadam</option>
-        <option value="Eko">Eko</option>
-        <option value="Salim">Salim</option>
-        <option value="Taufik Hidayat Tasim">Taufik Hidayat Tasim</option>
-    </select>
+        <label>BERANGKAT JAM:</label>
+        <input type="text" id="berangkatJam" placeholder="ISI JAM">
 
-    <label for="secondDriver">Second Driver:</label>
-    <select id="secondDriver">
-        <option value="Andi">Andi</option>
-        <option value="Hermanto">Hermanto</option>
-        <option value="Samsul">Samsul</option>
-        <option value="Rahmat">Rahmat</option>
-        <option value="Redi">Redi</option>
-        <option value="Triono">Triono</option>
-        <option value="Rofi">Rofi</option>
-        <option value="Sadam">Sadam</option>
-        <option value="Eko">Eko</option>
-        <option value="Salim">Salim</option>
-        <option value="Taufik Hidayat Tasim">Taufik Hidayat Tasim</option>
-    </select>
+        <label>TNKB:</label>
+        <input type="text" id="tnkb" placeholder="ISI NOMOR PLAT">
 
-    <button onclick="kirimPesan()">Kirim ke Telegram</button>
+        <label>DRIVER:</label>
+        <select id="driver">
+            <option>ANDI</option>
+            <option>HERMANTO</option>
+            <option>SAMSUL</option>
+            <option>RAHMAT</option>
+            <option>REDI</option>
+            <option>TRIONO</option>
+            <option>ROFI</option>
+            <option>SADAM</option>
+            <option>EKO</option>
+            <option>SALIM</option>
+        </select>
+
+        <label>SECOND DRIVER:</label>
+        <select id="secondDriver">
+            <option>NONE</option>
+            <option>ANDI</option>
+            <option>HERMANTO</option>
+            <option>SAMSUL</option>
+            <option>RAHMAT</option>
+            <option>REDI</option>
+            <option>TRIONO</option>
+            <option>ROFI</option>
+            <option>SADAM</option>
+            <option>EKO</option>
+            <option>SALIM</option>
+        </select>
+
+        <video id="video" autoplay></video>
+        <canvas id="canvas"></canvas>
+        <button onclick="startCamera()">AKTIFKAN KAMERA</button>
+        <button onclick="capturePhoto()">AMBIL FOTO</button>
+        <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
+    </div>
 
     <script>
-        function kirimPesan() {
-            let kantorAsal = document.getElementById("kantorAsal").value;
-            let kantorTujuan = document.getElementById("kantorTujuan").value;
-            let jumlahKantong1 = document.getElementById("jumlahKantong1").value;
-            let jumlahKantong2 = document.getElementById("jumlahKantong2").value;
-            let berangkatJam = document.getElementById("berangkatJam").value;
-            let tnkb = document.getElementById("tnkb").value;
-            let driver = document.getElementById("driver").value;
-            let secondDriver = document.getElementById("secondDriver").value;
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+        let botToken = "8121564417:AAGc9Si0ANPOaJgcGzhT1t10bs0yFz7VhyI"; // Ganti dengan token bot Anda
+        let chatId = "-4643025711"; // Ganti dengan chat ID
 
-            let pesan = `🏁🏁🏁 ARPOS 🏁🏁🏁\n<RUTE ${kantorAsal} - ${kantorTujuan}>\n\n▫️N22. ➡️.\n▫️Berangkat jam ➡️${berangkatJam}\n▫️No plat ➡️ ${tnkb}\n\n▫️Jumlah kantong ⤵️\n  ${kantorAsal} "${jumlahKantong1}" Ktg\n  ${kantorTujuan} "${jumlahKantong2}" Ktg\n\n▫️Driver ➡️ ${driver} ▫️Second driver ➡️ ${secondDriver}\n\n"TERIMA KASIH"..!!🙏🙏🙏`;
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.style.display = "block";
+                })
+                .catch(error => {
+                    alert("Gagal mengakses kamera!");
+                });
+        }
 
-            let botToken = "8121564417:AAFPo2-p_SbDZGbq74PibQ7oqJu3KOfm05Q";
-            let chatId = "-4643025711";
-            let apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(pesan)}`;
+        function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.style.display = "none";
+            canvas.style.display = "block";
+        }
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => alert("Pesan terkirim ke Telegram!"))
-                .catch(error => alert("Gagal mengirim pesan."));
+        function generateMessage() {
+            let asal = document.getElementById("asal").value.toUpperCase();
+            let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
+            let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
+            let jumlah1 = document.getElementById("jumlah1").value || "0";
+            let jumlah2 = document.getElementById("jumlah2").value || "0";
+            let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
+            let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
+            let driver = document.getElementById("driver").value.toUpperCase();
+            let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
+
+            let message = `🏁🏁🏁 POSLOG 🏁🏁🏁\n\n` +
+                          `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
+                          `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
+                          `▫️TNKB ➡️ ${tnkb}\n\n` +
+                          `▫️JUMLAH KANTONG ⤵️\n` +
+                          `     ${tujuan1} "${jumlah1}" KTG\n` +
+                          `     ${tujuan2} "${jumlah2}" KTG\n\n` +
+                          `▫️DRIVER ➡️ ${driver}\n` +
+                          `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
+                          `"TERIMA KASIH"..!!🙏🙏🙏`;
+
+            sendMessageToTelegram(message);
+        }
+
+        function sendMessageToTelegram(message) {
+            let imageData = canvas.toDataURL("image/jpeg").split(",")[1];
+            let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(urlMessage);
+
+            let formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", new Blob([Uint8Array.from(atob(imageData), c => c.charCodeAt(0))], { type: "image/jpeg" }));
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert("PESAN & FOTO BERHASIL DIKIRIM!"))
+            .catch(error => alert("GAGAL MENGIRIM FOTO!"));
         }
     </script>
+
 </body>
 </html>
