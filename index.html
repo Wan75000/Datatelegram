@@ -4,37 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS IND INDONESIA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            text-align: left;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        video, canvas {
+            width: 100%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>POS IND INDONESIA</h2>
+
+    <div class="container">
+        <label>PILIH TIPE:</label>
+        <select id="tipe">
+            <option>POSLOG</option>
+            <option>ARPOS</option>
+        </select>
+
+        <label>KANTOR ASAL:</label>
+        <select id="asal">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
+
+        <label>KANTOR TUJUAN I:</label>
+        <select id="tujuan1">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
+
+        <label>JUMLAH KANTONG:</label>
+        <input type="text" id="jumlah1" placeholder="ISI JUMLAH KANTONG">
+
+        <label>KANTOR TUJUAN II:</label>
+        <select id="tujuan2">
+            <option>KC SMR 75000</option>
+            <option>KC BOT 75300</option>
+            <option>KC TSE 77000</option>
+            <option>KC TNR 77300</option>
+            <option>KCU BPP 76100</option>
+            <option>SPP BJM 70400</option>
+            <option>NONE</option>
+        </select>
+
+        <label>JUMLAH KANTONG:</label>
+        <input type="text" id="jumlah2" placeholder="ISI JUMLAH KANTONG">
+
+        <label>BERANGKAT JAM:</label>
+        <input type="text" id="berangkatJam" placeholder="ISI JAM">
+
+        <label>TNKB:</label>
+        <input type="text" id="tnkb" placeholder="ISI NOMOR PLAT">
+
+        <label>DRIVER:</label>
+        <select id="driver">
+            <option>ANDI</option>
+            <option>HERMANTO</option>
+            <option>SAMSUL</option>
+            <option>RAHMAT</option>
+            <option>REDI</option>
+            <option>TRIONO</option>
+            <option>ROFI</option>
+            <option>SADAM</option>
+            <option>EKO</option>
+            <option>SALIM</option>
+        </select>
+
+        <label>SECOND DRIVER:</label>
+        <select id="secondDriver">
+            <option>NONE</option>
+            <option>ANDI</option>
+            <option>HERMANTO</option>
+            <option>SAMSUL</option>
+            <option>RAHMAT</option>
+            <option>REDI</option>
+            <option>TRIONO</option>
+            <option>ROFI</option>
+            <option>SADAM</option>
+            <option>EKO</option>
+            <option>SALIM</option>
+        </select>
+
+        <video id="video" autoplay></video>
+        <canvas id="canvas"></canvas>
+        <button onclick="startCamera()">AKTIFKAN KAMERA</button>
+        <button onclick="capturePhoto()">AMBIL FOTO</button>
+        <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
+    </div>
+
     <script>
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+        let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
+        let chatId = "-4624208579"; // Ganti dengan chat ID
+
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.style.display = "block";
+                })
+                .catch(error => {
+                    alert("Gagal mengakses kamera!");
+                });
+        }
+
+        function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.style.display = "none";
+            canvas.style.display = "block";
+        }
+
         function generateMessage() {
-            let asal = document.getElementById("asal").value;
-            let tujuan1 = document.getElementById("tujuan1").value;
-            let tujuan2 = document.getElementById("tujuan2").value;
-            let jumlah1 = document.getElementById("jumlah1").value;
-            let jumlah2 = document.getElementById("jumlah2").value;
-            let berangkatJam = document.getElementById("berangkatJam").value;
-            let tnkb = document.getElementById("tnkb").value;
-            let driver = document.getElementById("driver").value;
-            let secondDriver = document.getElementById("secondDriver").value;
-            let kategori = "🏁🏁🏁 POSLOG 🏁🏁🏁"; // Default kategori
+            let tipe = document.getElementById("tipe").value.toUpperCase();
+            let asal = document.getElementById("asal").value.toUpperCase();
+            let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
+            let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
+            let jumlah1 = document.getElementById("jumlah1").value || "0";
+            let jumlah2 = document.getElementById("jumlah2").value || "0";
+            let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
+            let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
+            let driver = document.getElementById("driver").value.toUpperCase();
+            let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
 
-            // Menentukan kategori ARPOS
-            if ((asal === "SPP BJM 70400" && tujuan1 === "KC BPP 76100" && tujuan2 === "KC SMR 75000") ||
-                (asal === "KCU BPP 76100" && tujuan1 === "KC SMR 75000")) {
-                kategori = "🏁🏁🏁 ARPOS 🏁🏁🏁";
-            }
-
-            // Menentukan N22 berdasarkan aturan
-            let n22 = "";
-            if (asal === "KC SMR 75000" && tujuan1 === "KCU BPP 76100" && tujuan2 === "SPP BJM 70400") n22 = "17:30";
-            if (asal === "KCU BPP 76100" && tujuan1 === "SPP BJM 70400") n22 = "23:00";
-            if (asal === "SPP BJM 70400" && tujuan1 === "KCU BPP 76100" && tujuan2 === "KC SMR 75000") n22 = "16:00";
-            if (asal === "KCU BPP 76100" && tujuan1 === "KC SMR 75000") n22 = "07:30";
-            if (asal === "KC SMR 75000" && tujuan1 === "SPP BJM 70400") n22 = "20:30";
-            if (asal === "KC BOT 75300" && tujuan1 === "KC SMR 75000" && tujuan2 === "KCU BPP 76100") n22 = "17:00";
-
-            let message = `${kategori}\n\n` +
-                          `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n` +
-                          `▫️N22 ➡️ ${n22}\n` +
+            let message = `🏁🏁🏁 ${tipe} 🏁🏁🏁\n\n` +
+                          `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
                           `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
                           `▫️TNKB ➡️ ${tnkb}\n\n` +
                           `▫️JUMLAH KANTONG ⤵️\n` +
@@ -48,103 +185,12 @@
         }
 
         function sendMessageToTelegram(message) {
-            let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
-            let chatId = "-4624208579"; // Ganti dengan chat ID
-            let url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-            
-            fetch(url)
-                .then(response => response.json())
-                .then(data => alert("Pesan berhasil dikirim!"))
-                .catch(error => alert("Gagal mengirim pesan!"));
+            let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            fetch(urlMessage)
+                .then(response => alert("PESAN BERHASIL DIKIRIM!"))
+                .catch(error => alert("GAGAL MENGIRIM PESAN!"));
         }
     </script>
-</head>
-<body>
-    <h2>POS IND INDONESIA</h2>
-    
-    <label>KANTOR ASAL:</label>
-    <select id="asal">
-        <option>KC SMR 75000</option>
-        <option>KC BOT 75300</option>
-        <option>KC TSE 77000</option>
-        <option>KC TNR 77300</option>
-        <option>KCU BPP 76100</option>
-        <option>SPP BJM 70400</option>
-        <option>NONE</option>
-    </select>
-    <br><br>
 
-    <label>KANTOR TUJUAN I:</label>
-    <select id="tujuan1">
-        <option>KC SMR 75000</option>
-        <option>KC BOT 75300</option>
-        <option>KC TSE 77000</option>
-        <option>KC TNR 77300</option>
-        <option>KCU BPP 76100</option>
-        <option>SPP BJM 70400</option>
-        <option>NONE</option>
-    </select>
-    <br><br>
-
-    <label>Jumlah Kantong:</label>
-    <input type="text" id="jumlah1" placeholder="Isi jumlah kantong">
-    <br><br>
-
-    <label>KANTOR TUJUAN II:</label>
-    <select id="tujuan2">
-        <option>KC SMR 75000</option>
-        <option>KC BOT 75300</option>
-        <option>KC TSE 77000</option>
-        <option>KC TNR 77300</option>
-        <option>KCU BPP 76100</option>
-        <option>SPP BJM 70400</option>
-        <option>NONE</option>
-    </select>
-    <br><br>
-
-    <label>Jumlah Kantong:</label>
-    <input type="text" id="jumlah2" placeholder="Isi jumlah kantong">
-    <br><br>
-
-    <label>Berangkat Jam:</label>
-    <input type="text" id="berangkatJam" placeholder="Isi jam">
-    <br><br>
-
-    <label>TNKB:</label>
-    <input type="text" id="tnkb" placeholder="Isi nomor plat">
-    <br><br>
-
-    <label>Driver:</label>
-    <select id="driver">
-        <option>Andi</option>
-        <option>Hermanto</option>
-        <option>Samsul</option>
-        <option>Rahmat</option>
-        <option>Redi</option>
-        <option>Triono</option>
-        <option>Rofi</option>
-        <option>Sadam</option>
-        <option>Eko</option>
-        <option>Salim</option>
-    </select>
-    <br><br>
-
-    <label>Second Driver:</label>
-    <select id="secondDriver">
-        <option>NONE</option>
-        <option>Andi</option>
-        <option>Hermanto</option>
-        <option>Samsul</option>
-        <option>Rahmat</option>
-        <option>Redi</option>
-        <option>Triono</option>
-        <option>Rofi</option>
-        <option>Sadam</option>
-        <option>Eko</option>
-        <option>Salim</option>
-    </select>
-    <br><br>
-
-    <button onclick="generateMessage()">Kirim ke Telegram</button>
 </body>
 </html>
