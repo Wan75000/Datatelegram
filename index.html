@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -125,8 +124,7 @@
         <video id="video" autoplay></video>
         <canvas id="canvas"></canvas>
         <button onclick="startCamera()">AKTIFKAN KAMERA</button>
-        <button onclick="capturePhoto()">AMBIL FOTO</button>
-        <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
+        <button onclick="captureAndSend()">KIRIM KE TELEGRAM</button>
     </div>
 
     <script>
@@ -146,31 +144,14 @@
                 .catch(() => alert("Gagal mengakses kamera! Pastikan izin diberikan."));
         }
 
-        function capturePhoto() {
+        function captureAndSend() {
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            video.style.display = "none";
-            canvas.style.display = "block";
-
-            canvas.toBlob(blob => sendPhotoToTelegram(blob), "image/jpeg");
+            canvas.toBlob(blob => sendPhotoAndText(blob), "image/jpeg");
         }
 
-        function sendPhotoToTelegram(blob) {
-            let formData = new FormData();
-            formData.append("chat_id", chatId);
-            formData.append("photo", blob, "photo.jpg");
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => alert(data.ok ? "Foto berhasil dikirim!" : "Gagal mengirim foto: " + data.description))
-            .catch(error => alert("Gagal mengirim foto! " + error));
-        }
-
-        function generateMessage() {
+        function sendPhotoAndText(blob) {
             let tipe = document.getElementById("tipe").value;
             let asal = document.getElementById("asal").value;
             let tujuan1 = document.getElementById("tujuan1").value;
@@ -182,16 +163,25 @@
             let driver = document.getElementById("driver").value;
             let secondDriver = document.getElementById("secondDriver").value;
 
-            let message = `🏁🏁🏁 ${tipe} 🏁🏁🏁\n\n` +
-                          `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
+            let message = `🇲🇨🏁🇲🇨 ${tipe} 🇲🇨🏁🇲🇨\n\n` +
+                          `▫️RUTE  ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
                           `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
                           `▫️TNKB ➡️ ${tnkb}\n\n` +
-                          `▫️JUMLAH KANTONG:\n${tujuan1} "${jumlah1}" KTG\n${tujuan2} "${jumlah2}" KTG\n\n` +
-                          `▫️DRIVER: ${driver}\n▫️SECOND DRIVER: ${secondDriver}\n\nTERIMA KASIH! 🙏`;
+                          `▫️JUMLAH KANTONG ➡️ \n${tujuan1} "${jumlah1}" KTG\n${tujuan2} "${jumlah2}" KTG\n\n` +
+                          `▫️DRIVER ➡️ ${driver}\n▫️SECOND DRIVER ➡️ ${secondDriver}\n\nTERIMA KASIH! 🙏`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-                .then(() => alert("Pesan berhasil dikirim!"))
-                .catch(() => alert("Gagal mengirim pesan!"));
+            let formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", blob, "photo.jpg");
+            formData.append("caption", message); // Foto dikirim dengan teks sebagai caption
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert(data.ok ? "Laporan berhasil dikirim!" : "Gagal mengirim laporan: " + data.description))
+            .catch(error => alert("Gagal mengirim laporan! " + error));
         }
     </script>
 
