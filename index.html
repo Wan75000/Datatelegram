@@ -140,15 +140,15 @@
         let chatId = "-4624208579"; // Ganti dengan chat ID
 
         function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    video.srcObject = stream;
-                    video.style.display = "block";
-                })
-                .catch(error => {
-                    alert("Gagal mengakses kamera!");
-                });
-        }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = "block";
+        })
+        .catch(error => {
+            alert("Gagal mengakses kamera! Pastikan browser mendukung atau coba gunakan HTTPS.");
+        });
+         }
 
         function capturePhoto() {
             canvas.width = video.videoWidth;
