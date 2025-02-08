@@ -137,8 +137,8 @@
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 
-let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot
-let chatId = "7453583192"; // Ganti dengan chat ID grup
+let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6x9-IsZfw"; // Ganti dengan token bot
+let chatId = "-7453583192"; // Tambahkan tanda minus (-) jika menggunakan ID grup
 
 function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }) // Gunakan kamera belakang
@@ -151,6 +151,82 @@ function startCamera() {
         });
 }
 
+function capturePhoto() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    video.style.display = "none";
+    canvas.style.display = "block";
+
+    // Konversi gambar ke Blob
+    canvas.toBlob(blob => {
+        sendPhotoToTelegram(blob);
+    }, "image/jpeg");
+}
+
+function sendPhotoToTelegram(blob) {
+    let formData = new FormData();
+    formData.append("chat_id", chatId);
+    formData.append("photo", blob, "photo.jpg");
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("Foto berhasil dikirim ke Telegram!");
+        } else {
+            alert("Gagal mengirim foto: " + data.description);
+        }
+    })
+    .catch(error => {
+        alert("Gagal mengirim foto! " + error);
+    });
+}
+
+function generateMessage() {
+    let tipe = document.getElementById("tipe").value.toUpperCase();
+    let asal = document.getElementById("asal").value.toUpperCase();
+    let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
+    let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
+    let jumlah1 = document.getElementById("jumlah1").value || "0";
+    let jumlah2 = document.getElementById("jumlah2").value || "0";
+    let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
+    let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
+    let driver = document.getElementById("driver").value.toUpperCase();
+    let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
+
+    let message = `🏁🏁🏁 ${tipe} 🏁🏁🏁\n\n` +
+                  `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
+                  `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
+                  `▫️TNKB ➡️ ${tnkb}\n\n` +
+                  `▫️JUMLAH KANTONG ⤵️\n` +
+                  `     ${tujuan1} "${jumlah1}" KTG\n` +
+                  `     ${tujuan2} "${jumlah2}" KTG\n\n` +
+                  `▫️DRIVER ➡️ ${driver}\n` +
+                  `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
+                  `"TERIMA KASIH"..!!🙏🙏🙏`;
+
+    sendMessageToTelegram(message);
+}
+
+function sendMessageToTelegram(message) {
+    let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+    fetch(urlMessage)
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert("PESAN BERHASIL DIKIRIM!");
+            } else {
+                alert("GAGAL MENGIRIM PESAN! " + data.description);
+            }
+        })
+        .catch(error => {
+            alert("GAGAL MENGIRIM PESAN! " + error);
+        });
+}
 function capturePhoto() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
