@@ -10,9 +10,6 @@
             margin: 20px;
             text-align: center;
         }
-        h2 {
-            text-align: center;
-        }
         .container {
             max-width: 400px;
             margin: auto;
@@ -133,164 +130,68 @@
     </div>
 
     <script>
-           let video = document.getElementById('video');
-let canvas = document.getElementById('canvas');
-let context = canvas.getContext('2d');
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
 
-let botToken = "7303190050:AAHMjMeSEIxzEPMxYkc6iI5LD5SBz2oB5fc"; // Ganti dengan token bot
-let chatId = "-1002253675519"; // Tambahkan tanda minus (-) jika menggunakan ID grup
+        let botToken = "7303190050:AAHMjMeSEIxzEPMxYkc6iI5LD5SBz2oB5fc"; 
+        let chatId = "-1002253675519"; 
 
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }) // Gunakan kamera belakang
-        .then(stream => {
-            video.srcObject = stream;
-            video.style.display = "block";
-        })
-        .catch(error => {
-            alert("Gagal mengakses kamera! Pastikan izin kamera diberikan.");
-        });
-}
-
-function capturePhoto() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    video.style.display = "none";
-    canvas.style.display = "block";
-
-    let imageData = canvas.toDataURL("image/jpeg"); // Konversi ke base64
-    sendPhotoToTelegram(imageData);
-}
-
-function sendPhotoToTelegram(imageData) {
-    let formData = new FormData();
-    formData.append("chat_id", chatId);
-    formData.append("photo", imageData);
-
-    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            alert("Foto berhasil dikirim ke Telegram!");
-        } else {
-            alert("Gagal mengirim foto: " + data.description);
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.style.display = "block";
+                })
+                .catch(() => alert("Gagal mengakses kamera! Pastikan izin diberikan."));
         }
-    })
-    .catch(error => {
-        alert("Gagal mengirim foto! " + error);
-    });
-}
 
-function generateMessage() {
-    let tipe = document.getElementById("tipe").value.toUpperCase();
-    let asal = document.getElementById("asal").value.toUpperCase();
-    let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
-    let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
-    let jumlah1 = document.getElementById("jumlah1").value || "0";
-    let jumlah2 = document.getElementById("jumlah2").value || "0";
-    let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
-    let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
-    let driver = document.getElementById("driver").value.toUpperCase();
-    let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
+        function capturePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.style.display = "none";
+            canvas.style.display = "block";
 
-    let message = `🏁🏁🏁 ${tipe} 🏁🏁🏁\n\n` +
-                  `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
-                  `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
-                  `▫️TNKB ➡️ ${tnkb}\n\n` +
-                  `▫️JUMLAH KANTONG ⤵️\n` +
-                  `     ${tujuan1} "${jumlah1}" KTG\n` +
-                  `     ${tujuan2} "${jumlah2}" KTG\n\n` +
-                  `▫️DRIVER ➡️ ${driver}\n` +
-                  `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
-                  `"TERIMA KASIH"..!!🙏🙏🙏`;
-
-    sendMessageToTelegram(message);
-}
-
-function sendMessageToTelegram(message) {
-    let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-    fetch(urlMessage)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert("PESAN BERHASIL DIKIRIM!");
-            } else {
-                alert("GAGAL MENGIRIM PESAN! " + data.description);
-            }
-        })
-        .catch(error => {
-            alert("GAGAL MENGIRIM PESAN! " + error);
-        });
-}
-function capturePhoto() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    video.style.display = "none";
-    canvas.style.display = "block";
-
-    // Konversi gambar ke Blob
-    canvas.toBlob(blob => {
-        sendPhotoToTelegram(blob);
-    }, "image/jpeg");
-}
-
-function sendPhotoToTelegram(blob) {
-    let formData = new FormData();
-    formData.append("chat_id", chatId);
-    formData.append("photo", blob, "photo.jpg");
-
-    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-        method: "POST",
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            alert("Foto berhasil dikirim ke Telegram!");
-        } else {
-            alert("Gagal mengirim foto: " + data.description);
+            canvas.toBlob(blob => sendPhotoToTelegram(blob), "image/jpeg");
         }
-    })
-    .catch(error => {
-        alert("Gagal mengirim foto! " + error);
-    });
-}
+
+        function sendPhotoToTelegram(blob) {
+            let formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("photo", blob, "photo.jpg");
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert(data.ok ? "Foto berhasil dikirim!" : "Gagal mengirim foto: " + data.description))
+            .catch(error => alert("Gagal mengirim foto! " + error));
+        }
 
         function generateMessage() {
-            let tipe = document.getElementById("tipe").value.toUpperCase();
-            let asal = document.getElementById("asal").value.toUpperCase();
-            let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
-            let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
+            let tipe = document.getElementById("tipe").value;
+            let asal = document.getElementById("asal").value;
+            let tujuan1 = document.getElementById("tujuan1").value;
+            let tujuan2 = document.getElementById("tujuan2").value;
             let jumlah1 = document.getElementById("jumlah1").value || "0";
             let jumlah2 = document.getElementById("jumlah2").value || "0";
-            let berangkatJam = document.getElementById("berangkatJam").value.toUpperCase() || "-";
-            let tnkb = document.getElementById("tnkb").value.toUpperCase() || "-";
-            let driver = document.getElementById("driver").value.toUpperCase();
-            let secondDriver = document.getElementById("secondDriver").value.toUpperCase();
+            let berangkatJam = document.getElementById("berangkatJam").value || "-";
+            let tnkb = document.getElementById("tnkb").value || "-";
+            let driver = document.getElementById("driver").value;
+            let secondDriver = document.getElementById("secondDriver").value;
 
             let message = `🏁🏁🏁 ${tipe} 🏁🏁🏁\n\n` +
                           `▫️RUTE: ${asal} - ${tujuan1} - ${tujuan2}\n\n` +
                           `▫️BERANGKAT JAM ➡️ ${berangkatJam}\n` +
                           `▫️TNKB ➡️ ${tnkb}\n\n` +
-                          `▫️JUMLAH KANTONG ⤵️\n` +
-                          `     ${tujuan1} "${jumlah1}" KTG\n` +
-                          `     ${tujuan2} "${jumlah2}" KTG\n\n` +
-                          `▫️DRIVER ➡️ ${driver}\n` +
-                          `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
-                          `"TERIMA KASIH"..!!🙏🙏🙏`;
+                          `▫️JUMLAH KANTONG:\n${tujuan1} "${jumlah1}" KTG\n${tujuan2} "${jumlah2}" KTG\n\n` +
+                          `▫️DRIVER: ${driver}\n▫️SECOND DRIVER: ${secondDriver}\n\nTERIMA KASIH! 🙏`;
 
-            sendMessageToTelegram(message);
-        }
-
-        function sendMessageToTelegram(message) {
-            let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-            fetch(urlMessage)
-                .then(response => alert("PESAN BERHASIL DIKIRIM!"))
-                .catch(error => alert("GAGAL MENGIRIM PESAN!"));
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
+                .then(() => alert("Pesan berhasil dikirim!"))
+                .catch(() => alert("Gagal mengirim pesan!"));
         }
     </script>
 
