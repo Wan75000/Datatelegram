@@ -123,7 +123,7 @@
         <canvas id="canvas"></canvas>
         <button onclick="startCamera()">AKTIFKAN KAMERA</button>
         <button onclick="capturePhoto()">AMBIL FOTO</button>
-        <button onclick="sendToTelegram()">KIRIM KE TELEGRAM</button>
+        <button onclick="generateMessage()">KIRIM KE TELEGRAM</button>
     </div>
 
     <script>
@@ -134,14 +134,16 @@
         let chatId = "-4643025711"; // Ganti dengan chat ID
 
         function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    video.srcObject = stream;
-                    video.style.display = "block";
-                })
-                .catch(error => {
-                    alert("Gagal mengakses kamera!");
-                });
+            navigator.mediaDevices.getUserMedia({ 
+                video: { facingMode: "environment" } // Gunakan kamera belakang
+            })
+            .then(stream => {
+                video.srcObject = stream;
+                video.style.display = "block";
+            })
+            .catch(error => {
+                alert("Gagal mengakses kamera!");
+            });
         }
 
         function capturePhoto() {
@@ -152,7 +154,7 @@
             canvas.style.display = "block";
         }
 
-        function sendToTelegram() {
+        function generateMessage() {
             let asal = document.getElementById("asal").value.toUpperCase();
             let tujuan1 = document.getElementById("tujuan1").value.toUpperCase();
             let tujuan2 = document.getElementById("tujuan2").value.toUpperCase();
@@ -174,6 +176,10 @@
                           `▫️SECOND DRIVER ➡️ ${secondDriver}\n\n` +
                           `"TERIMA KASIH"..!!🙏🙏🙏`;
 
+            sendMessageToTelegram(message);
+        }
+
+        function sendMessageToTelegram(message) {
             let imageData = canvas.toDataURL("image/jpeg").split(",")[1];
 
             let formData = new FormData();
@@ -184,11 +190,12 @@
                 method: "POST",
                 body: formData
             })
+            .then(response => response.json())
             .then(() => {
-                return fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
+                let urlMessage = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+                fetch(urlMessage);
             })
-            .then(() => alert("PESAN & FOTO BERHASIL DIKIRIM!"))
-            .catch(() => alert("GAGAL MENGIRIM FOTO!"));
+            .catch(error => alert("GAGAL MENGIRIM FOTO!"));
         }
     </script>
 
