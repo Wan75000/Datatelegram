@@ -134,21 +134,59 @@
 
     <script>
         let video = document.getElementById('video');
-        let canvas = document.getElementById('canvas');
-        let context = canvas.getContext('2d');
-        let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
-        let chatId = "-4624208579"; // Ganti dengan chat ID
+let canvas = document.getElementById('canvas');
+let context = canvas.getContext('2d');
 
-        function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } })
-        .then(stream => {
-            video.srcObject = stream;
-            video.style.display = "block";
-        })
-        .catch(error => {
-            alert("Gagal mengakses kamera! Pastikan browser mendukung atau coba gunakan HTTPS.");
-        });
-         }
+let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
+let chatId = "-4624208579"; // Ganti dengan chat ID
+
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: { exact: "environment" } } // Pakai kamera belakang
+    })
+    .then(stream => {
+        video.srcObject = stream;
+        video.style.display = "block";
+    })
+    .catch(error => {
+        alert("Gagal mengakses kamera! Pastikan izin kamera diberikan.");
+    });
+}
+
+function capturePhoto() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    video.style.display = "none";
+    canvas.style.display = "block";
+
+    // Konversi gambar menjadi Blob
+    canvas.toBlob(blob => {
+        sendPhotoToTelegram(blob);
+    }, "image/jpeg");
+}
+
+function sendPhotoToTelegram(blob) {
+    let formData = new FormData();
+    formData.append("chat_id", chatId);
+    formData.append("photo", blob, "photo.jpg");
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("Foto berhasil dikirim ke Telegram!");
+        } else {
+            alert("Gagal mengirim foto: " + data.description);
+        }
+    })
+    .catch(error => {
+        alert("Gagal mengirim foto! " + error);
+    });
+}
 
         function capturePhoto() {
             canvas.width = video.videoWidth;
