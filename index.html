@@ -137,19 +137,52 @@
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 
-let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot Anda
-let chatId = "-4624208579"; // Ganti dengan chat ID
+let botToken = "7303190050:AAE8FjCgroPqCZ7ALVE6f9PrAi6x9-IsZfw"; // Ganti dengan token bot
+let chatId = "7453583192"; // Ganti dengan chat ID grup
 
 function startCamera() {
-    navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: { exact: "environment" } } // Pakai kamera belakang
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }) // Gunakan kamera belakang
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = "block";
+        })
+        .catch(error => {
+            alert("Gagal mengakses kamera! Pastikan izin kamera diberikan.");
+        });
+}
+
+function capturePhoto() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    video.style.display = "none";
+    canvas.style.display = "block";
+
+    // Konversi gambar ke Blob
+    canvas.toBlob(blob => {
+        sendPhotoToTelegram(blob);
+    }, "image/jpeg");
+}
+
+function sendPhotoToTelegram(blob) {
+    let formData = new FormData();
+    formData.append("chat_id", chatId);
+    formData.append("photo", blob, "photo.jpg");
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+        method: "POST",
+        body: formData
     })
-    .then(stream => {
-        video.srcObject = stream;
-        video.style.display = "block";
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("Foto berhasil dikirim ke Telegram!");
+        } else {
+            alert("Gagal mengirim foto: " + data.description);
+        }
     })
     .catch(error => {
-        alert("Gagal mengakses kamera! Pastikan izin kamera diberikan.");
+        alert("Gagal mengirim foto! " + error);
     });
 }
 
